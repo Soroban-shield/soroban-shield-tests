@@ -1,0 +1,12 @@
+[package]
+name = "shield-fuzz-harnesses"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[package.metadata.cargo-fuzz]
+bin = ["access_control", "ownable", "pausable", "reentrancy_guard", "rate_limiter", "multi_sig"]
+
+[[bin]]
+name = "access_control"
+path = "access_control/fuzz_target.rs"
