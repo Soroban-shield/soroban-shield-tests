@@ -6,3 +6,7 @@ publish = false
 
 [dependencies]
 soroban-sdk = { workspace = true }
+
+[[test]]
+name = "env_test"
+path = "tests/env_test.rs"
