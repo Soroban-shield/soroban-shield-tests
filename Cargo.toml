@@ -1,8 +1,9 @@
 [workspace]
-members = ["harnesses", "property_tests", "integration_suites"]
+members = ["harnesses", "property_tests", "integration_suites", "fixtures"]
 resolver = "2"
 
 [workspace.dependencies]
 soroban-sdk = { version = "21.0.0", features = ["testutils"] }
 soroban-shield-contracts = { path = "../soroban-shield-contracts" }
 proptest = "1.4"
+libfuzzer-sys = "0.4"
