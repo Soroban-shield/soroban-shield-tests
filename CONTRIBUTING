@@ -1,0 +1,6 @@
+# Contributing to soroban-shield-tests
+
+```bash
+cargo test
+cargo fuzz run <target> -- -max_total_time=60
+```
