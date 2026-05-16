@@ -4,9 +4,29 @@ version = "0.1.0"
 edition = "2021"
 publish = false
 
-[package.metadata.cargo-fuzz]
-bin = ["access_control", "ownable", "pausable", "reentrancy_guard", "rate_limiter", "multi_sig"]
+[dependencies]
+libfuzzer-sys = { workspace = true }
+
+[[bin]]
+name = "ownable"
+path = "ownable/fuzz_target.rs"
 
 [[bin]]
 name = "access_control"
 path = "access_control/fuzz_target.rs"
+
+[[bin]]
+name = "pausable"
+path = "pausable/fuzz_target.rs"
+
+[[bin]]
+name = "reentrancy_guard"
+path = "reentrancy_guard/fuzz_target.rs"
+
+[[bin]]
+name = "rate_limiter"
+path = "rate_limiter/fuzz_target.rs"
+
+[[bin]]
+name = "multi_sig"
+path = "multi_sig/fuzz_target.rs"
