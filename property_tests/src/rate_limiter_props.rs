@@ -6,10 +6,13 @@ proptest! {
     #[test]
     fn respects_max_calls(max in 1u32..10) {
         let env = Env::default();
+        let contract_id = env.register_contract(None, ());
         let caller = Address::generate(&env);
-        rate_limiter::configure(&env, max, 60);
-        for i in 0..max {
-            let ok = rate_limiter::check_and_record(&env, &caller, i as u64).is_ok();
+        let results: Vec<bool> = env.as_contract(&contract_id, || {
+            rate_limiter::configure(&env, max, 60);
+            (0..max).map(|i| rate_limiter::check_and_record(&env, &caller, i as u64).is_ok()).collect()
+        });
+        for ok in results {
             prop_assert!(ok);
         }
     }
@@ -17,10 +20,13 @@ proptest! {
     #[test]
     fn rejects_over_limit(max in 1u32..5) {
         let env = Env::default();
+        let contract_id = env.register_contract(None, ());
         let caller = Address::generate(&env);
-        rate_limiter::configure(&env, max, 60);
-        for i in 0..=max {
-            let _ = rate_limiter::check_and_record(&env, &caller, i as u64);
-        }
+        env.as_contract(&contract_id, || {
+            rate_limiter::configure(&env, max, 60);
+            for i in 0..=max {
+                let _ = rate_limiter::check_and_record(&env, &caller, i as u64);
+            }
+        });
     }
 }
