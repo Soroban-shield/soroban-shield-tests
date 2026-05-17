@@ -8,5 +8,8 @@ fn role_gated_proposal() {
     env.mock_all_auths();
     access_control::grant_role(&env, &symbol_short!("admin"), &admin, &admin);
     multi_sig::set_threshold(&env, 1);
-    assert_eq!(multi_sig::create_proposal(&env, &admin, symbol_short!("x"), 1), 1);
+    assert_eq!(
+        multi_sig::create_proposal(&env, &admin, symbol_short!("x"), 1),
+        1
+    );
 }
