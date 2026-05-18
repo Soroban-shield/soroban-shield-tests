@@ -6,7 +6,7 @@ proptest! {
     #[test]
     fn respects_max_calls(max in 1u32..10) {
         let env = Env::default();
-        let contract_id = env.register_contract_wasm(None, &[]);
+        let contract_id = env.register_contract_wasm(None, &[] as &[u8]);
         let caller = Address::generate(&env);
         let results: Vec<bool> = env.as_contract(&contract_id, || {
             rate_limiter::configure(&env, max, 60);
@@ -20,7 +20,7 @@ proptest! {
     #[test]
     fn rejects_over_limit(max in 1u32..5) {
         let env = Env::default();
-        let contract_id = env.register_contract_wasm(None, &[]);
+        let contract_id = env.register_contract_wasm(None, &[] as &[u8]);
         let caller = Address::generate(&env);
         env.as_contract(&contract_id, || {
             rate_limiter::configure(&env, max, 60);

@@ -4,8 +4,11 @@ use soroban_shield_contracts::contracts::ownable;
 #[test]
 fn renounce_clears_owner() {
     let env = Env::default();
+    let contract_id = env.register_contract_wasm(None, &[] as &[u8]);
     let owner = Address::generate(&env);
     env.mock_all_auths();
-    ownable::initialize(&env, &owner);
-    ownable::renounce_ownership(&env);
+    env.as_contract(&contract_id, || {
+        ownable::initialize(&env, &owner);
+        ownable::renounce_ownership(&env);
+    });
 }

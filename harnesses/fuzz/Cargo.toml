@@ -1,0 +1,55 @@
+[package]
+name = "shield-fuzz-harnesses-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+
+[[bin]]
+name = "ownable"
+path = "../ownable/fuzz_target.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "access_control"
+path = "../access_control/fuzz_target.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "pausable"
+path = "../pausable/fuzz_target.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "reentrancy_guard"
+path = "../reentrancy_guard/fuzz_target.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "rate_limiter"
+path = "../rate_limiter/fuzz_target.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "multi_sig"
+path = "../multi_sig/fuzz_target.rs"
+test = false
+doc = false
+bench = false
+
+[workspace]
