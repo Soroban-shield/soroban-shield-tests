@@ -4,12 +4,13 @@ use soroban_shield_contracts::contracts::{access_control, multi_sig};
 #[test]
 fn role_gated_proposal() {
     let env = Env::default();
+    let contract_id = env.register_contract_wasm(None, &[]);
     let admin = Address::generate(&env);
     env.mock_all_auths();
-    access_control::grant_role(&env, &symbol_short!("admin"), &admin, &admin);
-    multi_sig::set_threshold(&env, 1);
-    assert_eq!(
-        multi_sig::create_proposal(&env, &admin, symbol_short!("x"), 1),
-        1
-    );
+    let id = env.as_contract(&contract_id, || {
+        access_control::grant_role(&env, &symbol_short!("admin"), &admin, &admin);
+        multi_sig::set_threshold(&env, 1);
+        multi_sig::create_proposal(&env, &admin, symbol_short!("x"), 1)
+    });
+    assert_eq!(id, 1);
 }

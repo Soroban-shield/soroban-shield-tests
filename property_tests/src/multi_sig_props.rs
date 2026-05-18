@@ -6,7 +6,7 @@ proptest! {
     #[test]
     fn proposal_ids_increment(threshold in 1u32..5) {
         let env = Env::default();
-        let contract_id = env.register_contract(None, ());
+        let contract_id = env.register_contract_wasm(None, &[]);
         let creator = Address::generate(&env);
         env.mock_all_auths();
         let (id1, id2) = env.as_contract(&contract_id, || {
